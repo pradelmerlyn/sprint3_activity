@@ -9,16 +9,16 @@ import 'package:sprint3_activity/domain/entities/users/user_entity.dart';
 import 'package:sprint3_activity/domain/repository/users/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final UserService _userService;
+  final UserService _apiService;
   UserRepositoryImpl(
-    this._userService,
+    this._apiService,
   );
 
   @override
   Future<DataState<List<UserEntity>>> getUsers() async {
     try {
       final HttpResponse<List<UserModel>> httpResponse =
-          await _userService.getUsers();
+          await _apiService.getUsers();
 
       if (httpResponse.response.statusCode == HttpStatus.ok) {
         return DataSuccess(httpResponse.data);

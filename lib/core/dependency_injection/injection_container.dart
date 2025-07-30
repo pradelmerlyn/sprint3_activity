@@ -21,6 +21,7 @@ Future<void> initializeDependencies() async {
   final UseCaseRegistry useCaseRegistry = UseCaseRegistry();
   useCaseRegistry.registerUserUseCases();
   useCaseRegistry.registerPostUseCases();
+  useCaseRegistry.registerUserPostUseCases();
 
   //! ----- blocs -----
   final BlocRegistry blocRegistry = BlocRegistry();

@@ -1,6 +1,7 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
 import 'package:sprint3_activity/core/config/endpoints.dart';
+import 'package:sprint3_activity/data/model/post/post_model.dart';
 import 'package:sprint3_activity/data/model/users/user_model.dart';
 
 part 'user_service.g.dart';
@@ -11,4 +12,5 @@ abstract class UserService {
 
   @GET(Endpoints.users)
   Future<HttpResponse<List<UserModel>>> getUsers();
+
 }
