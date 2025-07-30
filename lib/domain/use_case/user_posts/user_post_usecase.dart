@@ -1,22 +1,22 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:sprint3_activity/core/usecases/usecase.dart';
 import 'package:sprint3_activity/core/util/data_state.dart';
 import 'package:sprint3_activity/domain/entities/post/post_entity.dart';
+import 'package:sprint3_activity/domain/entities/post/post_response_entity.dart';
 import 'package:sprint3_activity/domain/entities/user_posts/user_post_entity.dart';
 import 'package:sprint3_activity/domain/entities/users/user_entity.dart';
 import 'package:sprint3_activity/domain/repository/post/post_repository.dart';
 import 'package:sprint3_activity/domain/repository/users/user_repository.dart';
 
 class UserPostUsecase
-    implements UseCase<DataState<List<UserPostEntity>>, void> {
+    implements UseCase<DataState<Map<String, List<UserPostEntity>>>, void> {
   final UserRepository _userRepository;
   final PostRepository _postRepository;
 
   UserPostUsecase(this._userRepository, this._postRepository);
 
   @override
-  Future<DataState<List<UserPostEntity>>> call({void params}) async {
+  Future<DataState<Map<String, List<UserPostEntity>>>> call({void params}) async {
     final usersResult = await _userRepository.getUsers();
     final postResult = await _postRepository.getPosts();
 
@@ -31,17 +31,21 @@ class UserPostUsecase
       final List<UserPostEntity> userPosts = users.map((user) {
         final filteredPost = posts
             .where((post) => post.userId == user.id)
-            .toList(); 
+            .map((post) => PostResponseEntity(
+                  title: post.title,
+                  body: post.body,
+                ))
+            .toList();
 
         return UserPostEntity(
           name: user.name ?? '',
           username: user.username ?? '',
           email: user.email ?? '',
-          posts: filteredPost, 
+          posts: filteredPost,
         );
       }).toList();
 
-      return DataSuccess(userPosts);
+      return DataSuccess({"userPosts": userPosts});
     }
 
     return DataFailed(
