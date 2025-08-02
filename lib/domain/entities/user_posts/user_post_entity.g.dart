@@ -12,7 +12,7 @@ UserPostEntity _$UserPostEntityFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String?,
       email: json['email'] as String?,
       posts: (json['posts'] as List<dynamic>?)
-          ?.map((e) => PostEntity.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => PostResponseEntity.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

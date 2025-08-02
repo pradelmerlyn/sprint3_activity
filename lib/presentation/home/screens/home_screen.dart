@@ -18,19 +18,18 @@ class _HomeScreenState extends State<HomeScreen> {
   final userPostUseCase = sl<UserPostUsecase>();
 
   Future<void> _combineUserPosts() async {
+    setState(() => isLoading = true);
     final result = await userPostUseCase();
 
-    if (result is DataSuccess<List<UserPostEntity>>) {
-      final combinedJson = {
-        "userPosts": result.data!.map((u) => u.toJson()).toList()
-      };
-
-      debugPrint(const JsonEncoder.withIndent('  ').convert(combinedJson));
+    if (result is DataSuccess<Map<String, List<UserPostEntity>>>) {
+      final data = result.data!;
+      final prettyJson = const JsonEncoder.withIndent('  ').convert(data);
+      debugPrint(prettyJson);
     } else {
       debugPrint("❌ Failed to fetch userPosts.");
     }
 
-    setState(() => isLoading = false);
+    
 
   }
 
@@ -46,6 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
             : ElevatedButton(
                 onPressed: () async {
                   await _combineUserPosts();
+                  setState(() => isLoading = false);
                 },
                 child: const Text('View Logs'),
               ),

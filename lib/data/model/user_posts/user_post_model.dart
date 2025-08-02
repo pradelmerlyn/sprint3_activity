@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sprint3_activity/data/model/post/post_model.dart';
+import 'package:sprint3_activity/domain/entities/post/post_response_entity.dart';
 import 'package:sprint3_activity/domain/entities/user_posts/user_post_entity.dart';
 
 part 'user_post_model.g.dart';
@@ -7,16 +7,11 @@ part 'user_post_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class UserPostModel extends UserPostEntity {
   const UserPostModel({
-    String? name,
-    String? username,
-    String? email,
-    List<PostModel>? posts,
-  }) : super(
-          name: name,
-          username: username,
-          email: email,
-          posts: posts,
-        );
+    super.name,
+    super.username,
+    super.email,
+    super.posts,
+  });
 
   factory UserPostModel.fromJson(Map<String, dynamic> json) =>
       _$UserPostModelFromJson(json);

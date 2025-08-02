@@ -1,13 +1,11 @@
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:sprint3_activity/domain/entities/post/post_entity.dart';
+import 'package:sprint3_activity/domain/entities/post/post_response_entity.dart';
 
 part 'user_post_entity.g.dart';
 
 @JsonSerializable()
 class UserPostEntity extends Equatable {
-
-
   @JsonKey(name: 'name')
   final String? name;
 
@@ -18,7 +16,7 @@ class UserPostEntity extends Equatable {
   final String? email;
 
   @JsonKey(name: 'posts')
-  final List<PostEntity>? posts;
+  final List<PostResponseEntity>? posts;
 
   const UserPostEntity({
     this.name,
